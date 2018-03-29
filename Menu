@@ -1,0 +1,97 @@
+OPTIONS MENU
+
+@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=new MenuInflater(this);
+        menuInflater.inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.item1:
+                Intent intent=new Intent(MainActivity.this,Main2Activity.class);
+                startActivity(intent);
+                break;
+            case R.id.item3:
+                Toast.makeText(getApplicationContext(),"Item3",Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    
+    CONTEXT MENU
+    
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+        TextView textView=(TextView)findViewById(R.id.textView);
+        registerForContextMenu(textView);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater menuInflater=new MenuInflater(this);
+        menuInflater.inflate(R.menu.menu,menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.item1:
+                Toast.makeText(getApplicationContext(),"Item1",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.item3:
+                Toast.makeText(getApplicationContext(),"Item3",Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+    
+    
+    POPUP MENU
+    
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final Button textView=(Button)findViewById(R.id.button);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu menu=new PopupMenu(MainActivity.this,textView);
+                menu.getMenuInflater().inflate(R.menu.menu,menu.getMenu());
+
+                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch(menuItem.getItemId())
+                        {
+                            case R.id.item1:
+                                Intent intent=new Intent(MainActivity.this,Main2Activity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.item3:
+                                Toast.makeText(getApplicationContext(),"Item3",Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        return true;
+
+                    }
+                });
+                menu.show();
+
+            }
+        });
+
+    }
+    
